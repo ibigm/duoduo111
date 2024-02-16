@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Room Selector</title>
+    <style>
+        /* 样式可以根据您的喜好进行调整 */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        #countdown {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Random Room Selector</h2>
+        <p id="result"></p>
+        <button onclick="selectRandomRoom()">Select Room</button>
+        <p id="countdown"></p>
+    </div>
+
+    <script>
+        let interval;
+        function selectRandomRoom() {
+            const rooms = [
+                '休息室', '茶水间', '工作室', '厂长室',
+                '会客厅', '阅览室', '实验室', '娱乐厅'
+            ];
+            const randomIndex = Math.floor(Math.random() * rooms.length);
+            const selectedRoom = rooms[randomIndex];
+            document.getElementById('result').innerText = `大聪明AI预测的房间：${selectedRoom}`;
+
+            // 禁用按钮，避免连续点击
+            document.querySelector('button').disabled = true;
+
+            // 设置65秒的倒计时
+            let countdown = 65;
+            document.getElementById('countdown').innerText = `倒计时：${countdown} 秒`;
+            interval = setInterval(() => {
+                countdown--;
+                document.getElementById('countdown').innerText = `倒计时：${countdown} 秒`;
+                if (countdown === 0) {
+                    document.querySelector('button').disabled = false;
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
